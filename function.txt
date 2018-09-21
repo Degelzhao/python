@@ -1,0 +1,20 @@
+1.ord() :获取字符的整数表示
+>>>ord('A')
+65
+
+2.chr() :把编码转换为对应的字符
+>>>chr(66)
+'B'
+
+3.len() :计算str的字符数
+>>>len('ABC')
+3
+>>>len('中文')
+2
+
+4.pow(x,y) :返回xy(x的y次方)
+
+5.range(start,stop[,step])
+start :开始计数，默认是从0开始
+stop:结束计数，不包括stop
+step:步长，默认为1.例如：range（0， 5） 等价于 range(0, 5, 1)
