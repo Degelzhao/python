@@ -18,3 +18,18 @@
 start :开始计数，默认是从0开始
 stop:结束计数，不包括stop
 step:步长，默认为1.例如：range（0， 5） 等价于 range(0, 5, 1)
+
+6.isinstance(obj,type)
+obj:要判断的对象
+type:类型
+如果obj的类型和type类型相同，则返回ture
+反之，返回flase
+
+7.iter():用来生成迭代器
+>>>lst = [1, 2, 3]
+>>> for i in iter(lst):
+...     print(i)
+... 
+1
+2
+3

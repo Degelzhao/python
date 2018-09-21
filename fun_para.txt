@@ -1,0 +1,68 @@
+函数的参数：
+
+1.位置参数：
+def power(x,n):
+	s = 1
+	while n > 0:
+		n = n - 1
+		s = s * x
+x和n都是位置参数
+传入的两个值按照位置顺序依次赋给参数x和n
+
+2.默认参数
+1> 必选参数在前，默认参数在后
+2> 当有多个参数时，变化大的参数放前面，变化小的参数放后面
+优点：降低调用函数的难度
+注意：
+定义默认参数要牢记一点：默认参数必须指向不可变对象
+
+3.可变参数:传入的参数个数是可变的
+
+def calc(*number):
+	sum = 0
+	for n in numbers:
+		sum = sum + n * n
+	return sum
+>>>calc(1,2)
+5
+
+定义时只需在参数前加一个*号
+在函数内部，参数numbers接受到的是一个tuple
+如果已经有一个list或者tuple,Python允许在list或tuple前面加一个*号，把list或tuple的元素变成可变参数传进去:
+>>>nums = [1,2,3]
+>>>calc(*nums)
+
+4.关键字参数:
+允许传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict
+def person(name,age,**kw):
+	peint('name:',name,'age:',age,'other:',kw)
+
+person除了必选参数name,age外，还接受关键字参数kw,可以只传入必选参数
+>>>person('Michael',30)
+name:Michael age:30 other:{}
+
+>>>person('Adam',45,gender = 'M',job = 'Engineer')
+name:Adam age:45 other:{'gender':'M','job':'Engineer'}
+
+和可变参数类似，也可以先组装一个dict,然后，把该dict转换为关键字参数传进去
+>>>extra = {'city':'Beijing','job':'Engineer'}
+>>>person('jack',24,**extra)
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+
+5.命名关键字参数:
+参数只需要一个特殊分隔符*,*后面的参数被视为命名关键字参数。
+def person(name,age,*,city = 'Beijing',job):
+	print(name,age,city,job)
+
+>>>person('jack',24,job = 'Engineer')
+jack 24 Beijing Engineer
+
+注意:命名关键字参数必须传入参数名，这和位置参数不同。如果没有传入参数名，调用将报错
+
+如果函数定义中已经有一个可变参数，后面跟着的命名关键字参数就不再需要*。例:
+def person(name,age,*args,city,job):
+	print(name,age,args,city,job)
+
+参数组合:
+参数定义的顺序:
+必选，默认，可变，命名关键字，关键字
