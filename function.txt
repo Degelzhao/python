@@ -33,3 +33,37 @@ type:类型
 1
 2
 3
+
+8.map(function,iterable):会根据提供的函数对指定序列做映射
+参数:
+function - 函数
+iterable - 一个或多个序列
+返回值:
+返回迭代器
+
+9.reduce(function,iterable):把一个函数作用在一个序列上，先对序列中的第1，2个元素进行操作，得到的结果再与第三个数据用function函数运算，最后得到一个结果
+参数:
+function - 函数，有两个参数
+iterable - 可迭代对象
+
+10.filter(function,iterable):用于过滤序列，过滤掉不符合条件的元素，返回由符合条件元素组成的新列表。
+参数:
+function - 判断函数
+iterable - 可迭代对象
+返回值:
+返回列表
+
+11.sorted(iterable[,cmp[,key[,reverse]]])
+用法:对所有可迭代对象进行排序操作
+参数:
+iterable - 可迭代对象
+cmp - 比较的函数，这个具有两个参数，参数的值都是从可迭代对象中取出，此函数必须遵守的规则为，大于则返回1，小于则返回-1，等于则返回0。
+key - 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
+reverse -  排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
+
+12.lambda x: x * x :匿名函数
+冒号前面的x表示函数参数
+
+也可以把匿名函数作为返回值返回:
+def build(x,y):
+	return lambda: x * x + y * y
