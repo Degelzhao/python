@@ -58,7 +58,10 @@ for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数
 >>> [s.lower() for s in L]
 ['hello', 'world', 'ibm', 'apple']
 
-4.生成器(generator):一边循环一边推算的机制
+4.生成器(generator):
+列表的容量是有限的，要创建一个有很多元素的列表，但是我们仅仅需要访问前面几个元素，肯定是很浪费空间的。
+所以，是否可以在循环过程中不断推算出后续元素呢？这样就不必创建出完整的list,可以节省大量的空间。
+所以，这种一边循环一边推算的机制，被称为生成器(generator)
 
 >>> L = [x * x for x in range(10)]
 >>> L
@@ -74,6 +77,9 @@ for循环后面还可以加上if判断，这样我们就可以筛选出仅偶数
 	   print(n)
 
 如果一个函数定义中包括yield关键字，那么这个函数就是一个generator
+generator和函数的执行流程不一样：
+函数是顺序执行，遇到return语句或者最后一行函数语句就返回
+而变成generator的函数，在每次调用next()的时候执行，遇到yield语句返回，再次执行时从上次返回的yield语句处继续执行。
 
 5.迭代器(Iterator)
 可以被next()函数调用并不断返回下一个值的对象称为迭代器：Iterator。
@@ -102,5 +108,5 @@ Iterator对象表示的是一个数据流，可以无限大，而list,dict,str�
 
 
 凡是可作用于for循环的对象都是Iterable类型；
-凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；2
+凡是可作用于next()函数的对象都是Iterator类型，它们表示一个惰性计算的序列；
 集合数据类型如list、dict、str等是Iterable但不是Iterator，不过可以通过iter()函数获得一个Iterator对象
