@@ -1,3 +1,4 @@
+#杨辉三角
 def triangles(max):
 	p = [1]
 	while True:
