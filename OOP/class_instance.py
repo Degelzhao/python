@@ -2,6 +2,9 @@
 #此例子中Student是Class,通过Class()创建实例,
 #通过__init__的方法将属性提前绑定到实例上
 #__init__(),print_score()和get_grade()是类的方法
+'class_instance'
+
+__author__ = 'Degel zhao'
 
 class Student(object):
 	"""docstring for Student"""

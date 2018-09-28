@@ -1,5 +1,9 @@
 #访问限制
 
+'access_restrictions'
+
+__author__ = 'Degel zhao'
+
 class Student(object):
 	def __init__(self,name,gender):
 		self.name = name
