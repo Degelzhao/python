@@ -96,7 +96,7 @@ name -- 字符串，属性名
 返回值:
 如果对象有该属性返回True,否则返回False
 
-15.setattr(object,name,value):对应函数getattr，用于设置属性，该属性必须存在
+15.setattr(object,name,value):对应函数getattr，用于设置属性，可以设置旧的属性，也可以设置新的属性
 参数:
 object -- 对象
 name -- 字符串，对象属性
@@ -111,6 +111,7 @@ name -- 字符串，对象属性
 default -- 默认返回值，如果不提供该参数，在没有对应属性时，将触发 AttributeError
 返回值:
 返回对象属性值
+
 
 
 
