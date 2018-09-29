@@ -3,7 +3,7 @@
 
 import Barry
 
-'a testing module'
+'a testing module for this'
 
 __author__ = 'Degel zhao'
 
