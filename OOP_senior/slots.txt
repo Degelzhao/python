@@ -1,0 +1,78 @@
+ class Student(object):    #定义一个类
+...     pass
+...
+>>> xuan=Student()         #xuan是类Student的一个实例
+>>> xuan.name='Zhangxuan'  #可以为实例xuan增加一个属性
+>>> xuan.name
+'Zhangxuan'
+
+>>>
+>>>#下面将为单独一个实例增加某一个方法：
+>>>
+>>> def set_age(self,age):    #首先定义一个方法，有属性age
+...     self.age=age
+...
+>>> from types import MethodType    
+>>> xuan.set_age=MethodType(set_age,xuan)   #这样就可以为Student的实例xuan增加一个set_age()方法啦，但是后面创建一个Student的实例时并不具有该set_age()方法
+
+>>> xuan.set_age(22)
+>>> xuan.age
+22
+>>>
+>>> hehe=Student()     #为Student创建一个实例hehe
+>>> hehe.set_age(23)   #对该实例使用set_age()方法并不可以哦
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Student' object has no attribute 'set_age'
+>>>
+>>>#上面只对类的一个实例增加某方法，现在在类Student 内定义方法，所有实例都可以使用的
+>>>
+>>> Student.set_age=set_age  #这样使得Student的所有实例都具有该set_age()方法
+>>> hehe.set_age(23)
+>>> hehe.age
+23
+>>> haha=Student()
+>>> haha.set_age(24)
+>>> haha.age
+24
+>>>
+>>>#下面介绍__slots__ 可以限制类的实例所使用的属性
+>>> class Animal(object):
+...     __slots__=("name",'age')  #Animal的所有实例只能使用name age两个属性
+...
+>>> dog=Animal()
+>>> dog.name='Husky'
+>>> dog.name
+'Husky'
+>>> dog.age=2
+>>> dog.age
+2
+>>> dog.female='male'     #对于类内__slots__外的其他属性 类的实例均不可以使用
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Animal' object has no attribute 'female'
+>>>
+>>>#对于类Animal的子类 如果不定义__slots__则不受父类
+>>>#__slots__中属性的限制，一旦子类中__slots__ 则子类的实例可以使用的属性除了自身
+>>>#__slots__ 也可以使用父类的__slots__中的属性
+
+>>> class animla(Animal):   
+...     __slots__=("gender")
+...
+>>> cat=animla()
+>>> cat.name='mimi'
+>>> cat.age=1
+>>> cat.gender='female'
+>>>
+
+
+总结:
+1.当创建了一个class的实例后，我们可以给该实例绑定任何属性和方法，这就是动态语言的灵活性
+2.为了给所有实例都绑定方法，可以给class绑定方法；给class绑定方法后，所有实例均可调用
+3.定义一个特殊的__slots__变量，来限制该class实例能添加的属性
+4.使用__slots__要注意，__slots__定义的属性仅对当前类实例起作用，对继承的子类是不起作用的；
+除非在子类中也定义__slots__，这样，子类实例允许定义的属性就是自身的__slots__加上父类的__slots__
+
+python中的MethodType使用解析:
+用MethodType将方法绑定到类，并不是将这个方法直接写到类内部，而是在内存中创建一个Link指向外部的方法，在创建实例的时候这个link也会被复制
+from types import MethodType
