@@ -56,3 +56,9 @@ main6()
 #小结
 #在Python中，文件读写是通过open()函数打开的文件对象完成的。
 #使用with语句操作文件IO是个好习惯
+
+
+#file-like Object
+#像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Object
+#除了file外，还可以是内存的字节流，网络流，自定义流等等
+#file-like Object不要求从特定类继承，只要写个read()方法就行
