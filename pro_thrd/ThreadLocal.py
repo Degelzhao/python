@@ -10,8 +10,8 @@ def process_student():
 
 
 def process_thread(name):
-	#绑定ThreadLocal的student
-	local_school.student = name
+	#绑定ThreadLocal的student,student相当于local_student的一个属性
+	local_school.student = name    
 	process_student()
 
 t1 = threading.Thread(target = process_thread,args = ('Alice',),name = 'Thread - A')
@@ -28,4 +28,4 @@ t2.join()
 
 #小结
 #一个ThreadLocal变量虽然是全局变量，但每个线程都只能读写自己线程的独立副本，互不干扰
-#ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题
+#ThreadLocal解决了参数在一个线程中各个函数之间互相传递的问题.
