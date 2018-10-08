@@ -28,7 +28,8 @@ balance = 0
 lock = threading.Lock()
 
 def change_it(n):
-	global balance
+	#使用global语句完成函数外变量的赋值
+	global balance                       
 	balance = balance + n
 	balance = balance - n
 
