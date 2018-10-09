@@ -1,4 +1,4 @@
-![image](https://github.com/Degelzhao/Git/raw/master/image/timg.jpg)
+
 
 A person who wants to learn Python well
 
