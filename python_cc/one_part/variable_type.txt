@@ -1,0 +1,50 @@
+下载Windows Python安装程序，请访问http://python.org/downloads/
+下载安装程序后，运行它。请务必选中复选框Add Python to PATH,这让你能够更轻松地配置系统
+dir:列出当前目录中的所有文件
+
+编写程序时，编辑器会以各种方式突出程序的不同部分
+函数将显示为蓝色，非代码部分将显示为橙色
+看到python代码以普通句子的颜色显示，或者普通句子以Python代码的颜色显示时，就可能意味着文件中存在引号不匹配的情况
+变量名只能包含字母、数字和下划线，变量名可以字母或下划线打头，但不能以数字打头
+变量名应既简短又具有描述性
+在变量名中尽量避免使用大写字母
+
+traceback是一条记录，指出了解释器尝试运行代码时，在什么地方陷入了困境
+Python无法识别你提供的变量名，名称错误通常意味着两种情况:
+1.使用变量前忘记了给它赋值
+2.输入变量名时拼写不正确
+计算机一丝不苟，但不关心拼写是否正确
+
+在Python中，用引号括起来的都是字符串，引号可以是单引号，也可以是双引号
+方法是Python可对数据执行的操作，在name.title()中，name后面的句点(.)让Python对变量name执行方法title()指定的操作
+
+制表符:在不使用表格的情况下在垂直方向按列对齐文本
+>>>a = 'python  '
+>>>a = a.rstrip()
+>>>a
+'python'
+要永久删除这个字符串中的空白，必须将删除操作的结果存回到变量中
+
+Python之禅:
+>>>import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
