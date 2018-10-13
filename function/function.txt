@@ -14,7 +14,7 @@
 
 4.pow(x,y) :返回xy(x的y次方)
 
-5.range(start,stop[,step])
+5.range(start,stop[,step]):可创建一个整数列表，一般用在for循环中
 start :开始计数，默认是从0开始
 stop:结束计数，不包括stop
 step:步长，默认为1.例如：range（0， 5） 等价于 range(0, 5, 1)
@@ -155,9 +155,50 @@ chars -- 移除字符串头尾指定的字符序列
 22.lstrip():用于移除字符串左边的空格或指定字符
 23.rstrip():用于移除字符串末尾的空格或指定字符
 
+24.assert
+用法:assert condition
+用来让程序测试这个condition，如果condition为false，那么raise一个AssertionError出来。逻辑上等同于：
+if not condition:
+    raise AssertionError()
 
+25.insert():用于将指定对象插入列表的指定位置
+语法:
+list.insert(index,obj)
+参数:
+index -- 对象obj需要插入的索引位置
+obj -- 要插入列表中的对象
+返回值:
+无
 
+25.encode():以encode指定的编码格式编码字符串。errors参数可以指定不同的错误处理方案。
+语法:
+str.encode(encoding = 'UTF-8',errors = 'strict')
+参数:
+encoding -- 要使用的编码，如'UTF-8'
+errors -- 设置不同错误的处理方案
 
+26.random.randint(1,100):在1-100中产生一个随机数，包括1和100
+
+27.chr():用一个范围在 range（256）内的（就是0～255）整数作参数，返回一个对应的字符
+语法:
+chr(i)
+参数:
+i -- 可以是10进制也可以是16进制的形式的数字
+返回值:
+返回值是当前整数对应的ascii字符
+
+28.join():用于将序列中的元素以指定的字符连接生成一个新的字符串
+语法:
+str.join(sequence)
+参数:
+sequence -- 要连接的元素序列
+返回值:
+返回通过指定字符连接序列中元素后生成的新字符串
+实例:
+>>>str = "-";
+>>>seq = ("a", "b", "c") # 字符串序列
+>>>print str.join( seq )
+a - b - c
 
 
 
