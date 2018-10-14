@@ -1,0 +1,66 @@
+python __enter__ 与 __exit__的作用，以及与with语句的关系
+with语句:有一些任务，可能实现需要设置，事后做清理工作
+
+1.with是如何工作的?
+基本思想是with所求值的对象必须有一个__enter__()方法，一个__exit__()方法
+例如:
+
+class sample:
+	def __enter__(self):
+		print "In __enter__()"
+		return "Foo"
+
+	def __exit__(self,type,value,trace):
+		print "In __exit__()"
+
+def get_sample():
+	return sample()
+
+with get_sample() as sample:
+	print "sample:", sample
+
+输出:
+In __enter__()
+sample: Foo
+In __exit__()
+
+程序执行步骤:
+__enter__()方法被执行
+__enter__()方法返回的值 - 这个例子中是"Foo",赋值给变量'sample'
+执行代码块，打印变量"sample"的值为"Foo"
+__exit__()方法被调用
+
+2.with真正强大之处是它可以处理异常
+Sample类的__exit__方法有三个参数value,type 和 trace。 这些参数在异常处理中相当有用
+class Sample:
+	def __enter__(self):
+		return self
+
+	def __exit__(self,type,value,trace):
+		print "type:",type
+		print "value:",value
+		print "trace:",trace
+
+	def do_something(self):
+		bar = 1/.
+		return bar + 10
+
+with Sample() as sample:
+	sample.do_something()
+
+虽然这个例子和第一个例子不太一样，但是只要紧跟with后面的语句所返回的对象有__enter__()和__exit__()方法即可
+代码执行后:
+
+type: <type 'exceptions.ZeroDivisionError'>
+value: integer division or modulo by zero
+trace: <traceback object at 0x1004a8128>
+Traceback (most recent call last):
+  File "./with_example02.py", line 19, in <module>
+    sample.do_somet hing()
+  File "./with_example02.py", line 15, in do_something
+    bar = 1/0
+ZeroDivisionError: integer division or modulo by zero
+
+正如例子所示，异常抛出时，与之关联的type，value和stack trace传给__exit__()方法
+
+因此，Python的with语句是提供一个有效的机制，让代码更简练，同时在异常产生时，清理工作更简单
