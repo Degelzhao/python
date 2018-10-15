@@ -17,6 +17,7 @@ __author__ = 'Degel zhao'
 from html.parser import HTMLParser                 #引入HTML解析模块
 from urllib import request                         #引入URL请求模块
 import re                                          #引入正则表达式模块
+from collections import OrderedDict
 
 class MyHTMLParser(HTMLParser):
 	def __init__(self):
