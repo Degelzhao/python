@@ -22,7 +22,8 @@ class WeatherSaxHandler(object):                 # 定义一个天气时间处�
 def parseXml(xml_str):                           # 定义xml解析器
 	handler = WeatherSaxHandler()                # 创建一个事件处理器的实例
 	parser = ParserCreate()                      # 创建一个解析器
-	parser.StartElementHandler = handler.start_element
+	#给与开始标签的处理方式
+	parser.StartElementHandler = handler.start_element     
 	parser.Parse(xml_str)                        # 解析xml文本
 
 	print('City: ' + handler.weather['city'])    # 打印city信息
