@@ -1,0 +1,18 @@
+常用第三方模块:
+chardet:
+有时候，我们并不知道这个bytes的编码是什么，不能用对应的decode来进行解码
+chardet的作用是可以检测bytes的编码
+
+使用chardet
+调用chardet.detect()即可:
+>>>chardet.detect(b'python')
+{'encoding': 'ascii', 'confidence': 1.0, 'language': ''}
+结果为ASCII编码，confidence字段指出检测正确的概率为1.0(100%)
+
+检测GBK编码的中文:
+>>>data = '离离原上草，一岁一枯荣'.encode('gbk')
+>>>chardet.detect(data)
+{'encoding': 'GB2312', 'confidence': 0.7407407407407407, 'language': 'Chinese'}
+结果显示是GB2312编码，这里的GBK是GB2312的超集
+
+chardet支持检测中文、日文、俄文等多种语言
