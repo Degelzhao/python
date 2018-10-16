@@ -1,0 +1,30 @@
+常用第三方模块:requests
+Python内置的urllib用于操作URL。requests同样用于操作网络资源，相比urllib，它用起来更加方便，功能也更加强大
+
+使用requests
+GET请求
+通过requests.get()即能够以GET请求访问网页:
+import requests
+r = requests.get('http://www.baidu.com/')
+
+查看相关属性:
+>>>r.status_code                 #获取网页状态码
+200
+
+>>>r.url                         #获取网页url
+https://www.baidu.com/
+
+>>>r.headers                     #获取头部信息
+{'Cache-Control': 'private, no-cache, no-store, proxy-revalidate, no-transform'...}
+
+>>>r.cookies                     #获取cookie信息
+<RequestsCookieJar[<Cookie BDORZ=27315 for .baidu.com/>]>
+
+>>>r.text                        #以文本形式获取网页源码
+b'<!DOCTYPE html>\r\n<!--STATUS OK--><html> <head>...'4
+
+>>>r.content                     #以bytes形式获取网页源码
+b'<!DOCTYPE html>\r\n<!--STATUS OK--><html> <head><meta http-equiv=content-type...'
+
+>>>r.encoding                    #检测网友编码形式
+ISO-8859-1
