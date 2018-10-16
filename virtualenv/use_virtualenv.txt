@@ -1,0 +1,43 @@
+常用第三方模块:virtualenv
+virtualenv用于创建Python的虚拟环境
+当一个项目需要运行的版本与系统所带的版本不一致，就需要创建一个该项目的独立运行环境
+
+Windows系统下如何使用virtualenv:
+1.安装virtualenv
+pip install virtualenv
+
+2.创建虚拟环境
+1>cd 到需要创建虚拟环境的文件目录(如果要从C盘切换到D盘中，可以用D:进入D盘)
+D: cd envs
+
+2>通过virtualenv创建一个虚拟环境，将它命名为new_env
+D:\env>virtualenv new_env
+
+然后会有以下结果:
+Using base prefix 'e:\\anaconda3'
+New python executable in D:\env\new_env\Scripts\python.exe
+Installing setuptools, pip, wheel...done.
+说明成功使用当前系统的Python版本创建了一个虚拟环境
+
+3.使用virtualenv
+1>cd 到虚拟环境目录下的Scripts目录
+D:\envs>cd new_env\Scripts
+
+2>输入activate
+D:\envs\new_env\Scripts>activate
+会出现下面的结果:
+(new_env) D:\envs\new_env\Scripts>
+地址前面的括号表示，当前环境是Python创建的虚拟环境new_env
+
+4.输入python,可查看当前环境的Python版本
+
+5.输入pip list，可查看当前环境下包含的库的版本
+
+在虚拟环境下，用pip安装的所有包都会装在new_env环境下，系统Python环境不受影响。这样，我们就可以安装运行项目所需要的工具版本了
+
+6.使用deactivate命令退出虚拟环境
+(new_env) D:\envs\new_env\Scripts>deactivate
+D:\envs\new_env\Scripts>
+
+小结:
+virtualenv可创建独立的虚拟运行环境，解决了不同应用项目间多版本的不兼容的问题
