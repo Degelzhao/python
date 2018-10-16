@@ -1,0 +1,98 @@
+常用第三方模块:
+通过psutil模块，可以轻松获取CPU、内存、磁盘、网络、进程等相关信息，是系统管理和维护必须可少的模块
+
+1.获取CPU信息:
+psutil.cpu_count():获取cpu的逻辑个数和物理个数:
+>>>import psutil
+>>>psutil.cpu_count()
+2
+信息显示cpu是2核
+
+psutil.cpu_times():获取cpu所有信息:
+>>>psutil.cpu_times()
+scputimes(user=76313.90625, system=48298.57812500006, idle=491664.21874999994, interrupt=4033.671875, dpc=1159.125)
+
+psutil.cpu_percent():获取cpu的使用率:
+>>>psutil.cpu_percent(interval=1, percpu=True)
+[15.2, 21.2]
+
+2.获取内存信息:
+psutil.virtual_memory():获取物理内存
+>>>psutil.virtual_memory()
+svmem(total=8500232192, available=5391896576, percent=36.6, used=3108335616, free=5391896576)
+返回值以字节为单位，结果显示:
+总内存大小:8500232192
+可用:5391896576
+占用了:36.6%
+
+3.获取磁盘信息:
+psutil.disk_partitions():获取磁盘分区信息
+>>>psutil.disk_partitions()
+[sdiskpart(device='C:\\', mountpoint='C:\\', fstype='NTFS', opts='rw,fixed'), sdiskpart(device='D:\\', mountpoint='D:\\', fstype='NTFS', opts='rw,fixed'), sdiskpart(device='E:\\', mountpoint='E:\\', fstype='NTFS', opts='rw,fixed'), sdiskpart(device='F:\\', mountpoint='F:\\', fstype='NTFS', opts='rw,fixed'), sdiskpart(device='G:\\', mountpoint='G:\\', fstype='', opts='cdrom')]
+信息显示，c盘的文件系统是NTFS,opts含rw表示可读写
+
+psutil.disk_usage('/'):获取磁盘使用情况
+>>>psutil.disk_usage('/')
+sdiskusage(total=118873595904, used=80199368704, free=38674227200, percent=67.5)
+信息显示，c盘总容量:118873595904,使用67.5%
+
+psutil.disk_io_counters()获取磁盘IO信息：
+>>>psutil.disk_io_counters()
+sdiskio(read_count=1039181, write_count=1243873, read_bytes=36149732864, write_bytes=31893119488, read_time=5022, write_time=3444)
+
+4.获取网络信息:
+psutil.net_io_counters()获取网络读写字节/包的个数：
+>>>psutil.net_io_counters()
+snetio(bytes_sent=21747441, bytes_recv=49470426, packets_sent=17794, packets_recv=44441, errin=0, errout=0, dropin=0, dropout=0)
+
+psutil.net_if_addrs()获取网络接口信息：
+>>>psutil.net_if_addrs()
+{
+  '本地连接 2': [snicaddr(family=<AddressFamily.AF_LINK: -1>, address='88-51-FB-7D-38-FA', netmask=None,...]
+  '无线网络连接 40':[snicaddr(family=<AddressFamily.AF_LINK: -1>,...]
+  '无线网络连接 39':[...]
+  ...
+}
+
+psutil.net_if_stats()获取网络接口状态：
+>>>psutil.net_if_stats()
+{
+  '本地连接 2': snicstats(isup=False, duplex=<NicDuplex.NIC_DUPLEX_FULL: 2>, speed=0, mtu=1500)，
+  '无线网络连接 40': snicstats(isup=False, duplex=<NicDuplex.NIC_DUPLEX_FULL: 2>, speed=0, mtu=1500),
+  '无线网络连接 39': snicstats(isup=True, duplex=<NicDuplex.NIC_DUPLEX_FULL: 2>, speed=225, mtu=1500), 
+  ...
+}
+
+psutil.net_connections()获取当前网络连接信息：
+>>>psutil.net_connections()
+[省略
+]
+
+5.获取进程信息
+psutil.pids()获取所有进程ID：
+>>>psutil.pids()
+[0, 4, 312, 488, 540, 556, 596, 612, 620,..，11440, 8924]
+
+获取具体进程的相关信息:
+>>>psutil.pids()  #所有进程ID
+[0, 4, 328, 496, 604, 672, 680, 768, 780, 828, 884, 928, 1028, 1116]
+>>>p = psutil.Process(604) #获取指定进程ID=604，其实就是当前Python交互环境
+>>>p.name()  #进程名称
+'wininit.exe'
+...
+
+6.psutil还提供了一个test()函数，可以模拟出ps命令的效果:
+>>>import psutil
+>>>psutil.test()
+USER         PID %MEM     VSZ     RSS TTY           START    TIME  COMMAND
+SYSTEM         0    ?      52       8 ?             Oct09   20:43  System Idle Process
+SYSTEM         4    ?     160      24 ?             Oct09   26:13  System
+             328    ?     516     496 ?             Oct09   00:00  smss.exe
+             496    ?    1720    1948 ?             Oct09   00:06  csrss.exe
+             508  0.2    4484   13640 ?             Oct09   01:14  svchost.exe
+             604    ?    1620    3052 ?             Oct09   00:00  wininit.exe
+             672  0.1    5176    6892 ?             Oct09   02:00  services.exe
+             680  0.2    8760   13768 ?             Oct09   01:25  lsass.exe
+             768    ?     928     996 ?             Oct09   00:00  svchost.exe
+             780    ?   11196     956 ?             Oct09   00:00  fontdrvhost.exe
+...   
