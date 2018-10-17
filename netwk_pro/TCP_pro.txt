@@ -1,0 +1,86 @@
+TCP编程:
+socket:网络上的两个程序通过一个双向的通信连接实现数据的交换，这个连接的一端称为一个socket
+而要打开socket,需要知道目标IP地址、端口号以及协议类型
+在Python中有socket库，可以用它来实现网络编程
+
+客户端:在建立TCP连接时，主动发起连接的一端
+1.引入socket库:
+import socket
+
+2.创建一个socket:
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+AF_INET:IPv4协议         IPv6 -- AF_INET6
+SOCK_STREAM:使用面向流的TCP协议
+
+3.建立连接:
+s.connect(('www.sina.com.cn',80))
+参数是一个tuple,包含地址和端口号
+80指的是目标端口，服务器所提供的每个服务会对应一个固定的端口号，80端口就是Web服务的标准端口
+
+4.向新浪服务器发送请求，要求返回首页的内容:
+s.send(b'GET / HTTP/1.1\r\nHost: www.sina.com.cn\r\nConnection: close\r\n\r\n'v)
+TCP连接创建的通道是双向的，即双方都可以给对方发送数据
+HTTP协议则规定发送信息的顺序 -- 客户端必须先给服务端发送信息，服务端收到信息后才能给客户端发送信息
+
+5.接受新浪服务器返回的数据:
+buffer = []                  #创建一个缓冲区，用于暂存接受数据
+while True:
+	d = s.recv(1024)         #指定一次最多接收的数据字节数
+	if d:
+		buffer.append(d)     #若有接收数据，则添加到缓冲区
+	else:
+		break                #直到数据接收完毕，退出循环
+
+data = b''.join(buffer)      #把变量存放到data变量中
+
+recv(max):指定一次接收的最大字节数
+
+6.调用close()来关闭socket
+s.close()
+
+这样就完成了网络通信客户端的编写
+
+对接收的数据进行简单的处理，把HTTP头打印出来，把网页内容保存：
+header, html = data.split(b'\r\n\r\n', 1)    #分离HTTP头与网页内容
+print(header.decode('utf_8'))               #打印HTTP头
+with open('sina.html', 'wb') as f:          #保存网页内容
+f.write(html)
+
+
+服务器:负责响应连接
+机制:通过绑定一个固定的端口，来监听客户端的连接，一旦接收到某个客户端的连接，就创建一个socket,然后进行通信
+
+由于一个服务器端口可能会接收到多个客户端的连接，所以每个连接都需要一个新的进程或线程来处理，否则一个服务端口一次只能服务一个客户端
+
+创建一个简单的服务器:
+1.创建一个基于IPv4和TCP协议的socket:
+import socket
+
+2.通过bind()方法绑定需要监听的端口:
+s.blid(('127.0.0.1',9999))
+这里的参数是一个tuple,含IP地址和端口号
+IP地址127.0.0.1是一个特殊地址，表示本机地址，如果绑定这个地址，则客户端必须同时在本机运行才能连接
+由于不是标准的服务端口，所以用9999端口号
+
+3.调用listen()方法监听绑定的端口，参数为最大的等待连接数
+s.listen(5)
+print('Waiting for connecting...')
+
+4.使用while循环来永久接收客户端的连接:
+while True:
+	#接收客户端的连接和地址
+	sock,addr = s.accept()                                    
+	#启动新线程来处理TCP连接
+	t = threading.Thread(target = tcplink,args = (sock,addr))
+	#启动线程
+	t.start()
+
+accept()方法会接收客户端的连接和地址
+通过threading.Thread()建立新线程来处理TCP连接，target为运行对象，args为传入参数
+
+客户端和服务器通信时，必须先开启服务器，然后再从客户端发送消息
+
+小结:
+对于客户端，要主动连接服务器的IP和指定端口
+对于服务器，要首先监听指定端口，然后，对每一个新的连接，创建一个线程或进程来处理
+通常，服务器程序会无限运行下去
