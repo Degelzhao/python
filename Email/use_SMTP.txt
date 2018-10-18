@@ -1,0 +1,21 @@
+SMTP发送邮件:
+邮件客户端软件在发邮件时，会让你先配置SMTP服务器
+同样的我们在编写MUA时，需要输入邮箱地址、密码、收件人地址信息，以及登录相对应的SMTP服务器，
+比如qq邮箱就是smtp.qq.com，163邮箱就是smtp.163.com
+
+需要注意的是，在编写MUA之前，要在对应的邮箱开启SMTP服务，开启后会得到授权码，这个授权码在登录SMTP服务器时要用到
+编写MUA用到Python的两个模块：email和smtplib
+email:负责构造邮件
+smtplib:负责发送邮件
+
+
+python SMTP发送时遇到的一些问题:
+1.要先确保自己的邮箱地址开启了smtp服务，并设置了客户端授权登陆密码
+2.发送邮件时，password应该填写邮箱的授权登陆码，而不是自己的邮箱密码
+3.应该在代码中加上：
+#发送邮箱地址
+msg['From'] = from_addr
+#收件箱地址
+msg['To'] = to_addr
+#主题
+msg['Subject'] = 'the frist mail'
