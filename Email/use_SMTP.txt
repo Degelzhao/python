@@ -19,3 +19,29 @@ msg['From'] = from_addr
 msg['To'] = to_addr
 #主题
 msg['Subject'] = 'the frist mail'
+
+同时支持plain(纯文本)和HTML
+在创建MIMEMultipart时指定subtype是alternative
+msg = MIMEMultipart('alternative')
+这样的话，一旦收件人无法查看HTML格式的邮件，就会自动变为plain格式查看
+
+SMTP加密
+使用标准的25端口连接SMTP服务器时，使用的是明文传输，在发送的过程有可能被窃听
+想要给邮件加密，添加starttls()方法即可
+在创建了SMTP对象后，立即调用starttls()方法即可:
+server = smtplib.SMTP(smtp_server, 25)
+server.starttls()
+
+构造一个邮件对象就是一个Message对象
+MIMEText:文本邮件对象
+MIMEImage:图像邮件对象
+MIMEMultipart:组合邮件对象
+MIMEBase:任意邮件对象
+他们的继承关系:
+Message
+ +- MIMEBase
+    +- MIMEMultipart
+    +- MIMENonMultipart
+       +- MIMEMessage
+       +- MIMEText
+       +- MIMEImage
