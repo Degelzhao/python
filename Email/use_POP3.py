@@ -10,8 +10,10 @@ password = 'zxs199325yb'
 pop3_server = 'pop.163.com'
 
 # 针对邮件相关信息，比如Subject, name等，进行解码
+
+
 def decode_str(s):
-# decode_header()返回一个list
+    # decode_header()返回一个list
 
     value, charset = decode_header(s)[0]
     if charset:
@@ -19,6 +21,8 @@ def decode_str(s):
     return value
 
 # 文本邮件的内容也是str，还需要检测编码，否则，非UTF-8编码的邮件都无法正常显示
+
+
 def guess_charset(msg):
     charset = msg.get_charset()                # 用get_charset()方法获取编码
     if charset is None:                        # 如果获取不到，则在原始文本中寻找
@@ -29,18 +33,20 @@ def guess_charset(msg):
     return charset
 
 # 递归打印出Message的层次结构
+
+
 def print_info(msg, indent=0):                 # indent用于缩进显示
     if indent == 0:
         for header in ['From', 'To', 'Subject']:
             value = msg.get(header, '')
             if value:
-                if header=='Subject':          # 解码主题信息
+                if header == 'Subject':          # 解码主题信息
                     value = decode_str(value)
                 else:                          # 解码发件人和收件人信息
                     hdr, addr = parseaddr(value)
                     name = decode_str(hdr)
                     value = u'%s <%s>' % (name, addr)
-            print('%s%s: %s' % ('  ' * indent, header, value))      #'  ' *indent可以打印出2*indent个空格
+            print('%s%s: %s' % ('  ' * indent, header, value))      # '  ' *indent可以打印出2*indent个空格
     # 将组合邮件对象分离
     if (msg.is_multipart()):
         parts = msg.get_payload()              # 拿取msg的子对象
@@ -50,7 +56,7 @@ def print_info(msg, indent=0):                 # indent用于缩进显示
             print_info(part, indent + 1)
     else:
         content_type = msg.get_content_type()  # 获取邮件对象格式
-        if content_type=='text/plain' or content_type=='text/html': # 如果为文本邮件，则直接打印
+        if content_type == 'text/plain' or content_type == 'text/html':  # 如果为文本邮件，则直接打印
             content = msg.get_payload(decode=True)
             charset = guess_charset(msg)       # 检测编码
             if charset:
@@ -59,31 +65,35 @@ def print_info(msg, indent=0):                 # indent用于缩进显示
         else:
             print('%sAttachment: %s' % ('  ' * indent, content_type))   # 否则为附件，获取附件信息
 
-#连接POP3服务器
-server = poplib.POP3(pop3_server)
-print(server.getwelcome().decode('utf-8'))       #打印POP3服务器欢迎信息
+# 连接POP3服务器
 
-#进行身份验证
+
+server = poplib.POP3(pop3_server)
+
+
+print(server.getwelcome().decode('utf-8'))       # 打印POP3服务器欢迎信息
+
+# 进行身份验证
 server.user(email)
 server.pass_(password)
 
-#返回邮箱的相关信息
-print('Messages: %s. Size: %s'% server.stat())   #stat()返回邮件数目和占用空间
-resp, mails, octets = server.list()              #list()返回所有邮件的编号
-print(mails)                                     #打印所有邮件编号和相应大小
+# 返回邮箱的相关信息
+print('Messages: %s. Size: %s' % server.stat())   # stat()返回邮件数目和占用空间
+resp, mails, octets = server.list()              # list()返回所有邮件的编号
+print(mails)                                     # 打印所有邮件编号和相应大小
 
-#获取一封邮件
-index = len(mails)                               #index为邮件总数目
-resp, lines, octets = server.retr(index)         #获取最新一封邮件的信息，lines存储了邮件的原始文本的每一行
-msg_content = b'\r\n'.join(lines).decode('utf-8')#获得整个邮件的原始文本
+# 获取一封邮件
+index = len(mails)                               # index为邮件总数目
+resp, lines, octets = server.retr(index)         # 获取最新一封邮件的信息，lines存储了邮件的原始文本的每一行
+msg_content = b'\r\n'.join(lines).decode('utf-8')  # 获得整个邮件的原始文本
 
-#稍后解析出邮件
+# 稍后解析出邮件
 msg = Parser().parsestr(msg_content)
 print_info(msg)
 server.quit()
 
 
-#小结
-#Python用POP3收取电子邮件分两步:
-#1.使用poplib下载邮件原始文本
-#2.使用email把原始文本解析为Message对象，然后将内容展示给用户
+# 小结
+# Python用POP3收取电子邮件分两步:
+# 1.使用poplib下载邮件原始文本
+# 2.使用email把原始文本解析为Message对象，然后将内容展示给用户
