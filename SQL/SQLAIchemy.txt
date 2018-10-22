@@ -1,0 +1,83 @@
+使用SQLAlchemy:
+在Python中，我们要表示一个表格内容的话，可以用list表示，像这样：
+[
+    ('1', 'Ming'),
+    ('2', 'Hong'),
+    ('3', 'Leo')
+]
+这是一个user表，包含了id和name
+
+但是这样用tuple表示一行，很难看出表的结构，我们可以class实例来表示：
+class User(object):
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
+
+[
+    User('1', 'Ming'),
+    User('2', 'Hong'),
+    User('3', 'Leo')
+]
+这种把关系数据库的表结构映射到对象上的技术就是ORM(Object-Relational Mapping)
+执行这种转换的框架就是ORM框架
+
+SQLAlchemy就是一种ORM框架，我们来看一下如何使用SQLAlchemy
+首先，在命令提示符中输入pip安装SQLAlchemy：
+pip install sqlalchemy
+然后，我们试一下用SQLAlchemy来创建一个user表
+
+1.导入SQLAlchemy：
+from sqlalchemy import Column, String, create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+2.创建user对象:
+Base = declarative_base()            #创建对象的基类
+
+class User(Base):
+    __tablename__ = 'student'      #表的名字
+
+    #表的结构
+    id = Column(String(11),primary_key = True)
+    name = Column(String(20))
+    score = Column(String(11))
+
+3.初始化数据库连接和DBSession:
+engine = create_engine('mysql+pymysql://root:zxs199325@localhost:3306/test')
+DBSession = sessionmaker(bind=engine)
+
+create_engine()用来初始化数据库连接,参数含义为:
+'数据库类型+数据库驱动名称://用户名:密码@机器地址:端口号/数据库名'
+
+4.添加数据:
+session = DBSession()                      #创建session对象
+new_user = User(id='1', name='Degel',score = '100')      #创建User对象:
+session.add(new_user)                      #把User对象添加到session中
+session.commit()                           #提交session
+session.close()
+
+可以看到，想要添加数据，只需要创建相应的对象，然后添加到session中，最后把session提交并关闭即可
+注意:前提是，database中必须有这张表
+
+查询数据:
+session = DBSession()
+user = session.query(User).filter(User.id == '1').one()          #filter()表示条件，one()表示返回唯一行
+print(user.name)
+session.close()
+
+5.ORM框架也可以提供一对多，多对多等功能，像关系数据库一样，例如:
+在User表中，一个user有一个id,一个name和多个score,也可以这样定义:
+class User(Base):
+    __tablename__ = 'student'
+    id = Column(String(11), primary_key=True)
+    name = Column(String(20))
+    score = relationship('Score')                    #创建一对多关系
+
+class Score(Base):
+    __tablename__ = 'score'
+    id = Column(String(11), primary_key=True)
+    math_score = Column(Integer)                       # 数学成绩
+    english_score = Column(Integer)                    # 英语成绩
+    chinese_score = Column(Integer)                    # 语文成绩
+
+    user_id = Column(String(20), ForeignKey('student.id'))
