@@ -1,0 +1,49 @@
+MySQL的一些基本操作:
+1.启动mysql服务:net start mysql
+2.进入mysql:mysql -uroot -p
+3.修改mysql的密码:mysqladmin -u root -p password
+4.创建一个数据库:create database test
+5.进入数据库:use test
+6.创建一个表:
+create table tb3(
+    -> id smallint unsigned auto_increment primary key,
+    -> username varchar(20) not null
+    -> );
+7.查看表:describe tb3
+
+使用PyMySQL
+PyMySQL是Python中用于连接MySQL服务器的一个库
+我们通过PyMySQL来连接MySQL
+1.在命令提示符中通过pip命令安装：
+pip install pymysql
+
+2.引入PyMySQL模块，然后建立与MySQL的连接和游标:
+>>> import pymysql
+>>> conn = pymysql.connect('localhost','root','zxs199325','test')
+>>> cursor = conn.cursor()
+connect()方法需要输入4个参数，依次为连接地址，用户名，密码，数据库名
+确保已经开启MySQL服务，并且已创建了数据库test
+
+3.添加数据:
+>>>cursor.execute('drop table if exists user')     #如果存在表user,先删除，即二次启动
+0
+>>>cursor.execute('create table user(id int primary key, name varchar(20),score int)')
+0
+>>>cursor.execute(r"insert into user values(1,'Ming',100)")
+1
+>>>cursor.close()
+>>>conn.commit()
+>>>conn.close()
+
+4.查询数据:
+>>>conn = pymysql.connect('localhost','root','zxs199325','test')
+>>>cursor = conn.cursor()
+>>>cursor.execute(r"select * from user where id = %s", (1))
+1
+>>>values = cursor.fetchall()
+>>>values
+((1, 'Ming', 100),)
+>>>cursor.close()
+>>>conn.close()
+
+
