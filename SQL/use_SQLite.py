@@ -1,7 +1,6 @@
-import os
-import sqlite3
+import os,sqlite3
 
-db_file = os.path.join(os.path.dirname(__file__), r'C:\Users\asd\PycharmProjects\python\test.db')
+db_file = os.path.join(os.path.dirname(__file__), 'test.db')
 if os.path.isfile(db_file):
     os.remove(db_file)
 
@@ -48,8 +47,6 @@ print ('调试结束-----------》\n')
 res1 = get_score(60, 100)
 res2 = get_score(60, 70)
 res3 = get_score(70, 80)
-
-
 # 小结:
 # SQLite是一种嵌入式数据库，由C编写，体积小，可以集成到各种应用中，Python内置了SQLite,可以直接使用
 # 在Python中操作数据库时，要先导入数据库对应的驱动，然后，通过Connection对象和Cursor对象操作数据
