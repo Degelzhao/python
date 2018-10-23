@@ -1,0 +1,52 @@
+Web开发
+使用WSGI接口:
+Web应用本质:
+1.浏览器给服务器发送HTTP请求
+2.服务器接收请求，并生成相应的HTML文档
+3.服务器给浏览器发送HTTP响应，里面包含HTML文档
+4.浏览器收到响应，解析HTML文档并展现给用户
+
+我们使用Python进行Web开发，就是要编写这一过程
+但是为了效率，我们不会编写接收HTTP请求，解析HTTP请求等底层工作
+我们的重点是专注于HTML文档的编写，而把其他关于HTTP连接的编写交给专门的服务器软件来完成
+
+WSGI接口就能实现我们要求的目的，通过WSGI，我们只要编写函数就能响应HTTP的请求
+例如:
+def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return [b'<h1>Hello, web!</h1>']
+函数application()是符合WSGI标准的一个HTTP处理函数。它接收两个参数：
+1.environ：指包含所有HTTP请求信息的dict对象；
+2.start_response：发送HTTP响应的函数
+
+函数start_response()需要接收两个参数：
+1.第一个参数是HTTP响应码，这里200 OK表示请求成功
+2.第二个参数是用list表示的HTTP Header，每个Header用一个包含两个str的tuple表示，
+这里('Content-Type', 'text/html')响应类型是文本类型
+返回值b'<h1>Hello, web!</h1>'作为HTTP响应的正文发给浏览器
+通过application()函数,只需要考虑如何响应请求，而不需要考虑如何解析HTTP请求等内容
+
+运行WSGI服务
+在Python中内置了一个WSGI服务器——wsgiref
+1.先编写一个简单的WSGI处理函数wsgi_hello.py:
+def application(environ, start_response):
+    start_response('200 OK', [('Content-Type', 'text/html')])
+    return [b'<h1>Hello, world!</h1>']
+
+2.再编写一个启动WSGI服务器和加载处理函数程序wsgi_server.py
+from wsgiref.simple_server import make_server   # 引入wsgiref模块中的make_server函数
+from wsgi_hello import application              # 引入application函数
+
+httpd = make_server('', 8888, application)      # 创建一个服务器
+print('Serving HTTP on port 8888..')
+httpd.serve_forever()                          # 开始监听HTTP请求
+
+函数make_server()用于创建服务器，传入三个参数，依次为IP地址、端口、处理函数
+注意两个文件放在同一目录下，且端口8888没有被占用
+在命令提示符中输入wsgi_server.py运行：
+然后打开浏览器，输入http://localhost:8888/，就可以看到编写的内容：
+
+小结:
+无论多么复杂的Web程序，入口都是一个WSGI处理函数。
+HTTP请求的所有输入信息都可以通过environ获得，HTTP响应的输出都可以通过start_response()
+加上函数返回值作为Body
