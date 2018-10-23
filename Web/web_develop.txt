@@ -1,0 +1,43 @@
+Web开发
+HTML简介
+HTML(HyperText Markup Language),即超文本标记语言,是一种用于创建网页的标准标记语言,例如:
+
+<html>
+<head>
+  <title>Hello</title>
+  <style>
+    h1 {
+      color: #0000FF;
+      font-size: 50px;
+      text-shadow: 3px 3px 3px #666666;
+    }
+  </style>
+  <script>
+    function change() {
+      document.getElementsByTagName('h1')[0].style.color = '#ff0000';
+    }
+  </script>
+</head>
+<body>
+  <h1> onclick="change()">Hello, world!</h1>
+</body>
+</html>
+
+用<>括起来的关键字称之为HTML标签(HTML tag),比如<html>
+tag通常是成对出现的,比如<html>和</html>
+在tag对中,第一个tag为开始标签,第二个tag为结束标签.在两个标签之间输入内容
+标签的含义:
+<html> -- HTML页面的根元素
+<head> -- 表示页面所含有的头部信息
+<title> -- 表示页面的标题
+<body> -- 表示页面的正文
+<h1> -- 定义一个大标题
+
+CSS简介:
+CSS(Cascading Style Sheets)是层叠样式表的意思。CSS的作用是控制HTML元素的展现形式
+比如我们给标题<h1>加一个样式,变成50号字体，蓝色，带阴影
+
+JavaScript简介:
+JavaScript 是一种轻量级的编程语言，可以内嵌或外部链接到HTML中，使得HTML具有交互性。
+比如我们希望用户点击标题后，标题的颜色变为红色，就必须通过JavaScript来实现
+

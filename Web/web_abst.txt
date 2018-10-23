@@ -1,0 +1,82 @@
+Web开发:
+如今，很多软件都是以web形式提供，比如：新浪微博，网易新闻等。可以说，Web应用开发是目前软件开发中最重要的部分
+Web开发经历了几个阶段:
+1.静态Web页面，直接显示静态的HTML页面，修改页面则要编辑HTML源文件，早期的互联网页面就是静态的
+2.出现CGI，Common Gateway Interface。页面可以处理用户发送的动态数据，比如用户注册。CGI用C/C++编写
+3.出现ASP/JSP/PHP。由于Web应用修改频率高，C/C++这样的低级语言不适合Web开发。而脚本语言开发效率高，且与HTML结合紧密，
+因此迅速取代了CGI。ASP是微软推出的用VBScript脚本编程的Web开发技术，JSP是用Java来编写脚本，PHP本身是开源的脚本语言
+4.出现MVC，Model-View-Controller。为了提高Web的可维护性，引入了“模型-视图-控制器”的模式，简化了Web开发
+5.现阶段，Web开发技术仍在快速发展，如异步开发等
+
+Python是一种解释型的脚本语言，开发效率高，而且有许多Web开发框架以及成熟的模板技术，非常适合用来做Web开发
+
+HTTP协议:
+字面意思为超文本传输协议，是浏览器与服务器之间的传输协议
+Request:用户通过浏览器向服务器发送HTTP请求信息
+Response:服务器收到请求后，向浏览器发送响应信息
+
+Request(HTTP请求信息)
+用浏览器打开网页后，按F12，会出现一个开发者工具界面，在里面可以看到网页的结构，通信信息等
+
+随便打开一个网页，例如百度，按F12，点击network，选择百度的网址，在右侧选择Headers，点击view source可以看到具体的信息
+
+HTTP请求信息:
+GET / HTTP/1.1
+Host: www.baidu.com
+Connection: keep-alive
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
+
+第一部分，是请求行。说明请求类型，访问资源以及HTTP版本
+GET表示请求类型是GET请求，/表示路径，/是首页，HTTP/1.1表示采用的HTTP协议是1.1版本
+
+第二部分，是请求头部。说明服务器要使用的附加信息。在这里，第一行往后都属于这一部分
+其中Host表示请求的域名
+
+第三部分，空行。请求头部后面的空行是必须的
+
+第四部分，请求数据。这里没有请求数据
+
+HTTP响应信息：
+HTTP/1.1 200 OK
+Bdpagetype: 2
+Bdqid: 0xcd0a3759000000f0
+Cache-Control: private
+Connection: Keep-Alive
+Content-Encoding: gzip
+Content-Type: text/html;charset=utf-8
+Date: Tue, 23 Oct 2018 02:56:02 GMT
+Expires: Tue, 23 Oct 2018 02:56:01 GMT
+Server: BWS/1.1
+Set-Cookie: BDSVRTM=174; path=/
+Set-Cookie: BD_HOME=1; path=/
+Set-Cookie: H_PS_PSSID=1449_21118_20698_26350_20930; path=/; domain=.baidu.com
+Strict-Transport-Security: max-age=172800
+X-Ua-Compatible: IE=Edge,chrome=1
+Transfer-Encoding: chunked
+第一部分，状态行。说明HTTP版本、信息状态码和状态信息
+状态码200表示请求成功，3xx表示重定向，4xx表示客户端发送的请求有错误，5xx表示服务器端处理时发生了错误
+
+第二部分，信息报头。说明客户端要使用的一些附加信息。第一行后面的都是
+其中Content-Type表示响应的内容，text/html表示HTML网页
+
+第三部分，空行。消息报头后面的空行是必须的
+
+第四部分，响应正文。即HTML源码。
+我们在开发者工具中点击Response，就能看到
+
+HTTP工作原理
+1.建立连接
+浏览器与Web服务器的端口建立一个TCP连接
+2.发送HTTP请求
+浏览器向服务器发送HTTP请求，包括请求方法、路径、域名以及其他相关Header
+3.接收HTTP请求并返回响应信息
+Web服务器解析请求，并返回响应信息，包括响应状态、响应类型、其他相关Header以及响应正文
+4.释放连接或继续请求
+若connection为close，则Web服务器主动断开连接；若connection为keepalive，则Web服务器继续等待请求
+5.解析响应信息
+浏览器解析响应信息，包括响应头和响应正文。最终解析HTML文本并显示出来
