@@ -1,0 +1,10 @@
+MVC模式:
+WSGI让我们只专注于编写处理函数，针对每个HTTP请求进行响应就能编写出Web应用
+而Web框架的使用，让我们只要专注于编写每个URL对应的处理函数即可，简化了Web应用的开发过程
+然而，仅仅这样还是不够，因为一个基本的网页一般都会有几千行的HTML，如果想要在Python中以字符串来编写出这么多的HTML是不现实的
+
+所以，更好的处理方式是准备好HTML文档作为模板，要使用时在Python中调用，并传入具体的数据，形成最终的HTML发送给用户
+这种模式就是MVC模式——Model-View-Controller
+Flask通过render_template()函数来实现模板的渲染
+
+很重要的一点就是:运行.py程序之前，要把存放html的文件夹改名为templates，因为flask默认再templates中搜索HTML文件

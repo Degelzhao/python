@@ -1,0 +1,53 @@
+Web开发
+Web框架
+编写一个Web应用，其实就是编写一个WSGI的处理函数，针对每一个HTTP请求进行响应
+如果要处理多个URL，每个URL又有多个不同的请求，仅用WSGI接口来处理是很麻烦的
+因此，可以通过Web框架，让我们专注于一个函数来处理一个URL，而框架的内部就是来处理URL到函数的映射
+常见的Python Web框架有Flask，Django，web.py，Bottle，Tornado
+
+使用Flask框架
+用Flask框架编写一个简单的可登陆页面
+编写一个webapp.py，里面处理三个URL，分别是:
+1.GET/：首页
+2.GET/signin:登陆页面，显示登陆表单
+3.POST/signin:处理登陆表单，显示登陆结果
+这里一个URL/signin分别有GET和POST请求，映射到两个处理函数
+
+Flask是通过装饰器在内部来把URL与函数关联起来的，具体代码如下：
+from flask import Flask
+from flask import request
+
+webapp = Flask(__name__)                             # 实例化一个Flask应用
+
+@webapp.route('/', methods = ['GET', 'POST'])        # 添加首页URL
+def home():
+    return '<h1>Home</h1>'
+
+@webapp.route('/signin', methods = ['GET'])          # 添加登陆页URL,用于GET请求
+def signin_from():
+    return '''<form action="/signin" method="post">
+                  <p><input name="username"></p>
+                  <p><input name="password" type="password"></p>
+                  <p><button type="submit">Sign In</button></p>
+                  </form>'''
+
+@webapp.route('/signin', methods = ['POST'])         # 添加登陆页URL,用于POST请求
+def signin():
+    if request.form['username'] == 'Degel' and request.form['password'] == 'zxs199325':
+        return '<h3> Hello, Degel!</h3>'
+    return '<h3>Bad username or password,</h3>'
+
+if __name__ == '__main__':
+    webapp.run()
+
+相关代码解析:
+xxx = Flask(__name__).用来实例化一个Flask应用
+Flask用装饰器的方法，通过route()函数来添加URL，传入的参数依次为URL，请求方法
+
+相关HTML文本解析:
+<form>用于创建表单，<p>表示创建一行，<input>用于创建输入框，其中属性type = "password"表示以密码形式显示即*****，
+<button>用于创建按钮，其中属性type = "submit"表示可提交
+Flask通过request.form['name']来获取表单内容
+
+运行webapp.py，可见Flask自带的Server在端口5000上监听：
+在浏览器中输入首页地址http://localhost:5000/，就能看到我们编写的首页内容：
