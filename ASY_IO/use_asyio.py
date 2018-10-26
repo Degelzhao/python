@@ -1,3 +1,5 @@
+#在Python中通过生成器generator来实现协程
+
 def customer():            #customer是一个生成器，把customer传入函数produce()执行
     r = ''
     while True:

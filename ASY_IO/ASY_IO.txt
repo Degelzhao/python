@@ -15,3 +15,10 @@ CPU的速度远远快于磁盘，网络等IO。
 在异步IO的情况下，遇到IO操作，一个线程可以处理多个IO请求，大大提高系统的多任务处理能力
 
 在Python中，通过生成器generator来实现协程
+
+小结:
+asyncio提供了完善的异步IO支持
+异步操作需要在coroutine中通过yield from完成
+把coroutine放到asyncio提供EventLoop引用中执行，即可实现异步操作
+在Python3.5及之后的版本中，语法@asyncio.coroutine替换成async，语法yield from替换成await
+异步IO更多用于服务器端，通过aiohttp模块，可以简单地编写出支持多用户高并发的服务器
