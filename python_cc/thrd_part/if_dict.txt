@@ -1,0 +1,111 @@
+1.if
+在python中检查是否相等时区分大小写，如:
+>>>car = 'Audi'
+>>>car == 'audi'
+False
+
+要判断两个值是否不等，可结合使用惊叹号和等号(!=)
+使用and检查多个条件
+使用or检查多个条件
+
+if-else语句块类似于简单的if语句，但其中的else语句让你能够指定条件测试未通过时要执行的操作
+如果知道最终要测试的条件，应考虑使用一个elif代码块来代替else代码块。
+这样，你就可以肯定，仅当满足相应的条件时，你的代码才会执行
+
+如果你只想执行一个代码块，就使用if-elif-else结构;如果要运行多个代码块，就使用一系列独立的if语句
+在if语句中将列表名用在条件表达式中时，python将在列表至少包含一个元素时返回True，并在列表为空时返回False
+list = []
+if list:
+    for element in list:
+        print(element)
+else:
+    print('the list is empty')
+
+
+2.dictionary
+1>使用字典:
+在python中，字典是一系列键-值对，每个键都与一个值相关联
+
+2>要获取与键相关联的值，可依次指定字典名和放在方括号内的键
+animals = {'mammals': 'dog'}
+print(animals['mammals']
+
+3>键-值对的排列顺序与添加顺序不同，python不关心键-值对的添加顺序，而只关心键和值之间的关联关系
+4>使用字典来存储用户提供的数据或在编写能自动生成大量键-值对的代码时，通常都需要先定义一个空字典
+5>对于字典中不再需要的信息，可使用del语句将相应的键-值对彻底删除
+animals = {'mammals': 'dog'}
+print(animals)
+
+def animals['mammals']
+print(animals)
+6>确定需要使用多行来定义字典时，在输入左花括号后按回车键，再在下一行缩进4个空格，指定第一个键-值对，并在它
+后面加上一个逗号
+fav_lang = {
+    'Degel': 'python'
+    'Barry': 'python'
+    }
+7>即便遍历字典时，键-值对的返回顺序也与存储顺序不同
+8>在不需要使用字典中的值时，方法keys()很有用
+fav_lang = {
+    'Degel': 'python'
+    'Barry': 'python'
+    }
+for name in fav_lang.keys():
+    print(name.title())
+
+8>可以使用sorted()对字典中元素进行排序来获得按特定顺序排列的键列表的副本:
+fav_lang = {
+    'Degel': 'python'
+    'Barry': 'python'
+    }
+for name in sorted(fav_lang.keys()):
+    print(name.title() + ", thanks your support")
+
+结果:
+Barry, thanks your support
+Degel, thanks your support
+
+9>可以使用values()遍历字典中的值
+fav_lang = {
+    'Degel': 'python'
+    'Barry': 'python'
+    }
+for language in fav_lang.values():
+    print(language.title())
+
+结果:
+python
+python
+
+10>可以使用集合set()来剔除列表中的重复项
+for language in set(fav_lang.values()):
+    print(language)
+
+结果:
+python
+
+11>嵌套:
+有时候，需要将一系列字典存储在列表中，或将列表作为值存储在字典中，这称为嵌套
+字典列表：
+aliens = []
+# 创建30个alien:
+for alien_number in range(30):
+    new_alien = {'color': 'green', 'point': 5, 'speed': 'slow'}
+    aliens.append(new_alien)
+
+# 显示前5个alien
+for alien in aliens[:5]:
+    print(alien)
+print("...")
+
+结果:
+
+
+range()返回一系列数字，其唯一的用途是告诉python我们要重复这个循环多少次。每次执行这个循环时，都创建一个alien
+
+在字典中存储列表：
+每当需要在字典中将一个键关联到多个值时，都可以在字典中嵌套一个列表:
+fav_lang = {
+    'Degel': ['python', 'C++']
+    'Barry': ['Java', 'python']
+    }
