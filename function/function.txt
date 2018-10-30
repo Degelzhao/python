@@ -208,7 +208,25 @@ cmp -- 可选参数，如果指定了该参数会使用该参数的方法进行�
 key --  主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序
 reverse -- 排序规则，reverse = True 降序，reverse = False 升序
 
+30.items():python字典items()函数以列表返回可遍历的(键，值)元组数组
+语法:
+dict.items()
+参数:
+N/A
+返回值:
+返回可遍历的(键，值)元组数组
+例子:
+dict = {'Google': 'www.google.com', 'Runoob': 'www.runoob.com', 'taobao': 'www.taobao.com'}
+print "字典值 : %s" %  dict.items()
 
+# 遍历字典列表
+for key,values in  dict.items():
+    print key,values
+结果:
+字典值 : [('Google', 'www.google.com'), ('taobao', 'www.taobao.com'), ('Runoob', 'www.runoob.com')]
+Google www.google.com
+taobao www.taobao.com
+Runoob www.runoob.com
 
 
 
