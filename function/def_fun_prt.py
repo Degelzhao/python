@@ -14,8 +14,8 @@ def quadratic(a,b,c):
 	else:
 		return('Wrong Number!')
 
-a = float(input('please input a = '))
-b = float(input('please input b = '))
-c = float(input('please input c = '))
-
-print(quadratic(a,b,c))
+if __name__ == '__main__':
+	a = float(input('please input a = '))
+	b = float(input('please input b = '))
+	c = float(input('please input c = '))
+	print(quadratic(a,b,c))
