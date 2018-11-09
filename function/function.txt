@@ -61,6 +61,13 @@ cmp - 比较的函数，这个具有两个参数，参数的值都是从可迭�
 key - 主要是用来进行比较的元素，只有一个参数，具体的函数的参数就是取自于可迭代对象中，指定可迭代对象中的一个元素来进行排序。
 reverse -  排序规则，reverse = True 降序 ， reverse = False 升序（默认）。
 
+sort 与 sorted 区别：
+
+sort 是应用在 list 上的方法，sorted 可以对所有可迭代的对象进行排序操作。
+
+list 的 sort 方法返回的是对已经存在的列表进行操作，无返回值，
+而内建函数 sorted 方法返回的是一个新的 list，而不是在原来的基础上进行的操作。
+
 12.lambda x: x * x :匿名函数
 冒号前面的x表示函数参数
 
@@ -228,7 +235,19 @@ Google www.google.com
 taobao www.taobao.com
 Runoob www.runoob.com
 
+31.set():创建一个无序不重复元素集
+语法:
+class set([iterable])
+返回值:
+返回新的集合对象
 
+32.update():把字典参数 dict2 的 key/value(键/值) 对更新到字典 dict 里
+语法:
+dict.update(dict2)
+参数:
+dict2 -- 添加到指定字典dict里的字典
+返回值:
+无
 
 
 
