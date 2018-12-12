@@ -32,7 +32,7 @@ def calc(*number):
 >>>nums = [1,2,3]
 >>>calc(*nums)
 
-4.关键字参数:
+4.关键字参数(传递给函数的名称-值对):
 允许传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict
 def person(name,age,**kw):
 	print('name:',name,'age:',age,'other:',kw)
