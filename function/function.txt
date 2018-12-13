@@ -235,7 +235,7 @@ dict = {'Google': 'www.google.com', 'Runoob': 'www.runoob.com', 'taobao': 'www.t
 print "字典值 : %s" %  dict.items()
 
 # 遍历字典列表
-for key,values in  dict.items():
+for key,values in dict.items():
     print key,values
 结果:
 字典值 : [('Google', 'www.google.com'), ('taobao', 'www.taobao.com'), ('Runoob', 'www.runoob.com')]
