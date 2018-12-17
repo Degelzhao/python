@@ -1,0 +1,5 @@
+In Python you can create object
+In Python you can create function
+In Python you can create class
+In Python you can create list
+In Python you can create tuple
